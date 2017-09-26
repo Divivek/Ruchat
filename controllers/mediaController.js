@@ -1,5 +1,4 @@
 
-
 var db = require("../models");
 
 
@@ -35,10 +34,6 @@ router.get('/home', function (req, res) {
 });
 
 
-router.get('/homeaaa', function(req, res){
-  res.render('chatroom');
-});
-
 router.post('/user/create', function (req, res) {
 
   db.user.create({
@@ -59,8 +54,7 @@ router.post('/user/login', function (req, res) {
       user_name: req.body.user_name
       // user_password: req.body.user_password
     }
-    //  added by divya saving the session details so it can be used acress the controllers
-    }).then(function(data) { 
+  }).then(function(data) {
       var userObj = {
         user : data
       };

@@ -5,25 +5,9 @@ var db = require("../models");
 
 module.exports = function(chatrouter){
 
-// 
-chatrouter.post('/usermessages/create', function (req, res) {
-console.log("help");
 
-var id;
 
-  id = req.session.get('user.id');
-  console.log(id);
-  console.log(req.body.message1);
-  db.userMessages.create({
-    Message: req.body.message1,
-    userId: id
-  }).then(function(data){
-    console.log("Message saved");  
-  });
-});
 
-// When called , the calling page load/reloads and 
-// returns username and chatroom name saved from the session
 chatrouter.get('/index', function (req, res) {
   userName = req.session.get('user.name', 'goAWAY ');
   ChatroomName = req.session.get('chatroom.name', 'goAWAY ');
@@ -35,7 +19,7 @@ chatrouter.get('/index', function (req, res) {
 
   res.render('index', userinChatroom);
 });
- // get the list of all the chatrooms from database
+
 chatrouter.get('/chatroom', function (req, res) {  
 
    console.log("CHAT CONTROLLER: " + req.session.get('user.name', 'goAWAY '))  
@@ -52,7 +36,7 @@ chatrouter.get('/chatroom', function (req, res) {
   });
 });
 
- // chatroom from different path
+
 
 chatrouter.get('/chatroom/view', function (req, res) {
   db.chatroom.findAll({
@@ -67,7 +51,6 @@ chatrouter.get('/chatroom/view', function (req, res) {
   });
 });
 
-// create the new chatroom into the database, does not check if the room is duplicate
 chatrouter.post('/chatroom/create', function (req, res) {
   db.chatroom.create({
     chatroom_name: req.body.chatroom_name
@@ -78,8 +61,7 @@ chatrouter.post('/chatroom/create', function (req, res) {
   });
 });
 
- //  when user joins a chatroom its recorded in a table "users in chatroom"
- //  table is not furture used currently,can be used attendance in chatroom or users
+
 chatrouter.put('/chatroom/join', function (req, res) {
  
   var lUserId = req.session.get('user.id', 'goAWAY ');
